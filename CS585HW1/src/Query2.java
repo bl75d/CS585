@@ -33,7 +33,6 @@ public class Query2 {
 			context.write(new Text(parts[1]), new Text("TransTotal "+parts[2]));
 		}
 	}
-	
 
 	public class JoinReducer extends Reducer<Text, Text, Text, Text> {
 		public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
@@ -59,7 +58,7 @@ public class Query2 {
 	 public static void main(String[] args) throws Exception {
 		 Configuration conf = new Configuration();
 		 Job job = Job.getInstance(conf, "Reduce-side join");
-		 job.setJarByClass(Q2.class);
+		 job.setJarByClass(Query2.class);
 		 
 		 job.setCombinerClass(JoinReducer.class);
 		 job.setReducerClass(JoinReducer.class);
@@ -71,7 +70,7 @@ public class Query2 {
 		 Path outputPath = new Path(args[2]);
 		  
 		 FileOutputFormat.setOutputPath(job, outputPath);
-		 outputPath.getFileSystem(conf).delete(outputPath);
+//		 outputPath.getFileSystem(conf).delete(outputPath);
 		 System.exit(job.waitForCompletion(true) ? 0 : 1);
 		 }
 }
