@@ -62,7 +62,7 @@ public class Customer {
 	
 	public static void main(String[] args) throws IOException {
 		FileWriter fw=new FileWriter("Customer.txt");
-		for(int i=0;i<5000;i++) {
+		for(int i=0;i<50000;i++) {
 			Customer addCustomer=new Customer();
 			addCustomer.newcustomer(i+1);
 			String dt=addCustomer.ID+","+addCustomer.Name+","+addCustomer.Age+","+addCustomer.Gender+","+addCustomer.CountryCode+","+addCustomer.Salary;
