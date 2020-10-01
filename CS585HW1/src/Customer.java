@@ -28,12 +28,12 @@ public class Customer {
 		Random r = new Random();
 		int lth=10+r.nextInt(10);
 		Random rnd = new Random();
-        while (salt.length() < lth) { // length of the random string.
+		// length of the random string.
+        while (salt.length() < lth) { 
             int index = (int) (rnd.nextFloat() * alphabet.length());
             salt.append(alphabet.charAt(index));
         }
         Name = salt.toString();
-//        System.out.println(Name);
 	}
 	public void setAge() {
 		Random r = new Random();
@@ -57,7 +57,6 @@ public class Customer {
 		int min=100;
 		Random r = new Random();
 		Salary=r.nextFloat()* (max - min) + min;
-//		System.out.println(Salary);
 	}
 	
 	public static void main(String[] args) throws IOException {

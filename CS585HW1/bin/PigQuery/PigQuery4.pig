@@ -1,0 +1,13 @@
+customers = LOAD '/Users/merqurius/Workspace/CS585/CS585HW1/Customer.txt' USING  PigStorage(',') AS  (id:int,name:chararray,age:int,gender:chararray,CountryCode:int,salary:float);
+A = foreach customers generate id, age, gender;
+transactions = LOAD '/Users/merqurius/Workspace/CS585/CS585HW1/Transaction.txt' USING PigStorage(',') as (trans_id:int, cust_id:int, total:float, num_items:int,  description:chararray);
+B = foreach transactions generate cust_id, total; 
+E = foreach A generate id, gender,(age-age%10) as low_bnd:chararray, ((age/10+1)*10) as high_bnd:chararray;
+F = foreach E generate id , gender as cgender, CONCAT('[',low_bnd,'-',high_bnd,')') as bnd:chararray;
+G = GROUP B by cust_id;
+H = foreach G Generate group as cid, MAX(B.total) as max_total, MIN(B.total) as min_total, AVG(B.total) as aveg;
+I = join H by cid, F by id;
+J = Group I by (bnd,cgender);
+K = Group I by bnd;
+O = foreach J Generate FLATTEN(group) as (bnd,cgender), MAX(I.max_total), MIN(I.min_total),AVG(I.aveg);
+STORE O INTO '/Users/merqurius/Workspace/CS585/CS585HW1/pig_Output/ ' USING PigStorage (',');

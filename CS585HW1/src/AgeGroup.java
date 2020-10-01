@@ -14,6 +14,7 @@ import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
@@ -127,6 +128,8 @@ public class AgeGroup {
     
     FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
     FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
+//    MultipleInputs.addInputPath(job, new Path("/Users/merqurius/Workspace/CS585Data/Customer.txt"));
+//    MultipleInputs.addInputPath(job, new Path("/Users/merqurius/Workspace/CS585Data/Transaction.txt"));
     
     System.exit(job.waitForCompletion(true) ?0 : 1);
   }
