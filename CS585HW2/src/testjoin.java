@@ -13,13 +13,16 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Mapper.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
-public class Spatial_join {
+public class testjoin {
    public static class pointmapper extends Mapper<Object, Text, Text, Text>{
+	   
+	   
 	protected void map(Object key, Text value, Context context)throws IOException, InterruptedException {
 		   int window_size=100;//define a 100*100 window
 		   String data=value.toString();
@@ -57,6 +60,25 @@ public class Spatial_join {
    			
    		}
    	}
+	 public static void main(String[] args) throws Exception {
+		 Configuration conf = new Configuration();
+		 Job job = Job.getInstance(conf, "Reduce-side join");
+		 job.setJarByClass(testjoin.class);
+		 
+		 job.setReducerClass(JoinReducer.class);
+		 job.setOutputKeyClass(Text.class);
+		 job.setOutputValueClass(Text.class);
+		  
+//		 MultipleInputs.addInputPath(job, new Path(args[0]),TextInputFormat.class, CustomerMapper.class);
+//		 MultipleInputs.addInputPath(job, new Path(args[1]),TextInputFormat.class, TransactionMapper.class);
+		 MultipleInputs.addInputPath(job, new Path("/Users/merqurius/Workspace/CS585Data/Customer.txt"),TextInputFormat.class, pointmapper.class);
+		 MultipleInputs.addInputPath(job, new Path("/Users/merqurius/Workspace/CS585Data/Transaction.txt"),TextInputFormat.class, rectanglemapper.class);
+		 Path outputPath = new Path("/Users/merqurius/Workspace/CS585Data/out/");
+//		 Path outputPath = new Path(args[2]);
+		 FileOutputFormat.setOutputPath(job, outputPath);
+		 outputPath.getFileSystem(conf).delete(outputPath);
+		 System.exit(job.waitForCompletion(true) ? 0 : 1);
+		 }
    
    
 }

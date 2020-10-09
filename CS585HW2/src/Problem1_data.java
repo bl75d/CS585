@@ -37,7 +37,7 @@ class Data {
 	}
 }
 
-public class Problem1 {
+public class Problem1_data {
 	public static void main(String[] args) throws IOException {
 		//change n to enlarge the size of data file
 		int n = 10000;
