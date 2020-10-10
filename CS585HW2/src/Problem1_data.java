@@ -1,9 +1,7 @@
 import java.util.Random;
-import java.lang.StringBuilder;
-import java.awt.Point;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
+
 //These parameters can only generate 10000 data of points and rectangels, the size of output data file is around 100K
 class Data {
 	static class points {
@@ -40,7 +38,7 @@ class Data {
 public class Problem1_data {
 	public static void main(String[] args) throws IOException {
 		//change n to enlarge the size of data file
-		int n = 10000;
+		int n = 10000000;
 		FileWriter pfw = new FileWriter("Point.txt");
 		FileWriter rfw = new FileWriter("Rec.txt");
 		for (int i = 0; i < n; i++) {

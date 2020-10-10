@@ -38,8 +38,8 @@ public class Query2 {
 		public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 			String name = "";
 			if (key.toString().split(" ").length == 1) {
+				
 // This branch is for Combiner
-
 				int count = 0;
 				float total = 0;
 				int flag = 0;

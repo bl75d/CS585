@@ -78,7 +78,7 @@ public class Query3 {
 		 Path outputPath = new Path("/Users/merqurius/Workspace/CS585Data/out/");
 //		 Path outputPath = new Path(args[2]);
 		 FileOutputFormat.setOutputPath(job, outputPath);
-		 outputPath.getFileSystem(conf).delete(outputPath);
+//		 outputPath.getFileSystem(conf).delete(outputPath);
 		 System.exit(job.waitForCompletion(true) ? 0 : 1);
 		 }
 }
