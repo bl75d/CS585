@@ -38,7 +38,9 @@ class Data {
 public class Problem1_data {
 	public static void main(String[] args) throws IOException {
 		//change n to enlarge the size of data file
+//		int n = 100000;
 		int n = 10000000;
+
 		FileWriter pfw = new FileWriter("Point.txt");
 		FileWriter rfw = new FileWriter("Rec.txt");
 		for (int i = 0; i < n; i++) {

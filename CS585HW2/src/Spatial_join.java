@@ -83,9 +83,9 @@ public class Spatial_join {
 				List<String> Pnt = new ArrayList<String>();
 				List<String> Rec = new ArrayList<String>();
 				for (Text t : values) {
-					String[] dt = t.toString().split("\\(|,|\\)|\\<|\\\\>");
+					String[] dt = t.toString().split("\\(|,|\\)|\\<|\\>");
 					if (dt.length == 3) {
-												Pnt.add(t.toString());
+						Pnt.add(t.toString());
 					} else if (dt.length == 5) {
 						Rec.add(t.toString());
 					}
