@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Progressive Aggregation Approximator</title>
+	<style type="text/css">
+	.selection {
+		font-size: 18px;
+		font-family: Arial Black, serif;
+	};
+	.inputBoxes{
+		font-size: 20px;
+		font-family: "Microsoft YaHei";
+	}
+	input{
+		outline-style: none;
+		margin-right:20px;
+		padding: 5px 0px;
+		font-family: "Microsoft YaHei";
+	}
+	table {border-collapse: collapse; font-family: Arial;}
+	th,td {padding:0.4em;border: 1px solid #555555;}
+	th {border: 1px solid #555555; nonerepeat scroll 0 0; font-size:20px;}
+	tbody tr {border: 1px solid #555555; font-size:20px;}
+	.main{float: left;width: 550px; }
+	.side{margin-left: 550px; overflow: hidden;}
+	</style>
+</head>
+
+<div class="main">
+<form action="/sql/" method = "post">
+	<div style="padding-left:20%; padding-top:10%; font-size:24px; font-family:Georgia, Gadget, serif; line-height:200%;">
+		<p> SELECT &nbsp; <select class="selection" name="function" required><option value ="AVG">Average</option><option value ="SUM">Sum</option><option value ="COUNT">Count</option><option value ="MAX">Max</option><option value ="MIN">Min</option></select>&nbsp;(&nbsp;<select class="selection" name="calculate" required><option value ="Age">Age</option><option value ="Salary">Salary</option></select>&nbsp;)<br>
+		FROM CUSTOMERS<br>
+		GROUP BY &nbsp; <select class="selection" name="column" required><option value ="CountryCode">Country code</option><option value ="Age">Age</option><option value="Gender">Gender</option></select>
+		<div class="inputBoxes">
+		Sample rate: &nbsp; <input type="text" name="percentage"><br>
+		Threshold: &nbsp; <input type="text" name="threshold">
+		</div>
+		Show all results: &nbsp;<select class="selection" name="log"><option value ="logtrue">True</option><option value ="logfalse">False</option></select>
+		</p>
+		<input type="submit" value = "Submit" class="button" style="padding: 10px 8px;">
+	</div>
+</form>
+</div>
+
+<div align="" style="padding-left:15%; padding-top:30px" class="side">
+        <form action="/sql/" method="post">
+        <table>
+			{% if items %}
+			<thead>
+            <tr style="text-align:center">
+                <th>Key</th>
+                <th>Value</th>
+			</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+            {% for i in items %}
+            <tr style="text-align:center">
+                <td>{{ i }}</td>
+                <td>{{ items[i][0] }}</td>
+            {% endfor %}
+			</tbody>
+        </table>
+        </form>
+</div>
+
+</body>
+</html>
