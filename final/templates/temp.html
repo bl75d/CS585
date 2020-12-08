@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Progressive Aggregation Approximator</title>
+	<style type="text/css">
+	.selection {
+		font-size: 18px;
+		font-family: Arial Black, serif;
+	};
+	.inputBoxes{
+		font-size: 20px;
+		font-family: "Microsoft YaHei";
+	}
+	input{
+		outline-style: none;
+		margin-right:20px;
+		padding: 5px 0px;
+		font-family: "Microsoft YaHei";
+	}
+	table {border-collapse: collapse; font-family: Arial; margin-top:15px;}
+	th,td {padding:0.4em;border: 1px solid #555555;}
+	th {border: 1px solid #555555; nonerepeat scroll 0 0; font-size:16px;}
+	tbody tr {border: 1px solid #555555; font-size:18px;}
+	</style>
+</head>
+
+<div align="" style="padding-left:10%; padding-top:15px">
+        <form action="/sql/" method="post">
+		{% if iter %}
+	 Iteration:&nbsp;{{iter}}&nbsp;&nbsp;&nbsp;
+			{% endif %}
+		{% if Time %}
+	 Time:&nbsp;{{Time}}&nbsp;&nbsp;&nbsp;
+			{% endif %}
+		{% if diff %}
+	 Diff:&nbsp;{{diff}}&nbsp;&nbsp;&nbsp;
+			{% endif %}
+	{% if Log %}
+        <table>
+			{% if items %}
+			<thead>
+            <tr style="text-align:center">
+                <th>{{Key}}</th>
+                <th>{{Value}}</th>
+			</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+            {% for i in items %}
+            <tr style="text-align:center">
+                <td>{{ i }}</td>
+                <td>{{ items[i][0] }}</td>
+            {% endfor %}
+		{% endif %}
+			</tbody>
+        </table>
+        </form>
+</div>
+
+</body>
+</html>
