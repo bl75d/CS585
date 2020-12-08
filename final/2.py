@@ -120,7 +120,37 @@ def SQL():
 		diff = sum(difference)/len(difference)
 		print("Diff: " + str(diff))
 		yield render_template('temp.html',items=record,iter=iter,diff=diff,Key=inputkey[1:],Value=opername,Time=time.time()-starttime,Log=log)
+
+	# Evaluation
+	errorrate, errors = evaluation(keys[2].upper(),record, keys[1], inputkey[1:])
+	print("Error Rate: "+str(errorrate))
+	print("Errors"+str(errors))
 	yield render_template('temp.html',items=record,iter="Result",diff=diff,Key=inputkey[1:],Value=opername,Log="True")
+
+def evaluation(operation,record,select,groupby):
+	keycolumn='$'+groupby
+	selectcolumn='$'+select
+
+	if operation== "COUNT":
+		result = collection.aggregate(
+			[{'$group': {'_id': keycolumn, 'out': {'$sum': 1}}}]
+		)
+	elif operation=="SUM":
+		result = collection.aggregate(
+			[{'$group': {'_id': keycolumn, 'out': {'$sum': selectcolumn}}}]
+		)
+	elif operation=="AVG":
+		result = collection.aggregate(
+			[{'$group': {'_id': keycolumn, 'out': {'$avg': selectcolumn}}}]
+		)
+	error=[]
+	errors=0
+	for a in result:
+		index=a['_id']
+		error.append(abs(a['out']-record[index][0])/a['out'])
+		errors+=abs(a['out']-record[index][0])
+	errorrate=sum(error)/len(error)
+	return errorrate,errors
 
 @app.route('/sql/',methods=['POST'])
 def SQLrender():
